@@ -6,7 +6,7 @@
 /*   By: aditsch <aditsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 15:05:00 by aditsch           #+#    #+#             */
-/*   Updated: 2016/12/08 18:43:44 by aditsch          ###   ########.fr       */
+/*   Updated: 2016/12/09 17:26:23 by aditsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,26 @@ void		ft_draw_line(t_env *env, t_point p1, t_point p2, int color)
 	}
 }
 
-void		ft_draw_map(t_env *env)
+void		ft_draw_map(t_env *env, t_map *map)
 {
 	int			x;
 	int			y;
 
 	y = -1;
-	while (++y < env->map->size.y)
+	while (++y < map->size.y)
 	{
 		x = -1;
-		while (++x < env->map->size.x)
+		while (++x < map->size.x)
 		{
-			if (x < env->map->size.x - 1)
-				ft_draw_line(env, env->map->coord[y][x], env->map->coord[y][x + 1], 0x00355C7D);
+			if (x < map->size.x - 1)
+				ft_draw_line(env, map->coord[y][x], map->coord[y][x + 1], 0x00355C7D);
 			if (y < env->map->size.y - 1)
-				ft_draw_line(env, env->map->coord[y][x], env->map->coord[y + 1][x], 0x00355C7D);
+				ft_draw_line(env, map->coord[y][x], map->coord[y + 1][x], 0x00355C7D);
 		}
 	}
 }
 
-void		ft_new_image(t_env *env)
+void		ft_draw_image(t_env *env)
 {
 	int		bpp;
 	int		sizeline;
@@ -66,4 +66,7 @@ void		ft_new_image(t_env *env)
 
 	env->img_ptr = mlx_new_image(env->mlx, WIN_WIDTH, WIN_HEIGHT);
 	env->data = (int *)mlx_get_data_addr(env->img_ptr, &bpp, &sizeline, &endian);
+	ft_draw_map(env, env->map);
+	mlx_put_image_to_window(env->mlx, env->win, env->img_ptr, 0, 0);
+	mlx_destroy_image(env->mlx, env->img_ptr);
 }
