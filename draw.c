@@ -6,7 +6,7 @@
 /*   By: aditsch <aditsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 15:05:00 by aditsch           #+#    #+#             */
-/*   Updated: 2016/12/09 17:26:23 by aditsch          ###   ########.fr       */
+/*   Updated: 2016/12/10 17:01:14 by aditsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,26 @@
 void		ft_draw_line(t_env *env, t_point p1, t_point p2, int color)
 {
 	t_draw_line	d;
-	d.delta.x = p2.x - p1.x < 0 ? -(p2.x - p1.x) : p2.x - p1.x;
-	d.delta.y = p2.y - p1.y < 0 ? -(p2.y - p1.y) : p2.y - p1.y;
-	d.step.x = (p1.x < p2.x) ? 1 : -1;
-	d.step.y = (p1.y < p2.y) ? 1 : -1;
-	d.err_1 = (d.delta.x > d.delta.y ? d.delta.x : -d.delta.y) / 2;
+	d.delta.x = fabs(ceil(p2.x) - ceil(p1.x));
+	d.delta.y = fabs(ceil(p2.y) - ceil(p1.y));
+	d.step.x = (ceil(p1.x) < ceil(p2.x)) ? 1 : -1;
+	d.step.y = (ceil(p1.y) < ceil(p2.y)) ? 1 : -1;
+	d.err_1 = (d.delta.x > d.delta.y ? d.delta.x : -d.delta.y) / 2.;
 	while(1)
 	{
-		env->data[p1.y * WIN_WIDTH + p1.x] = color;
-		if (p1.x == p2.x && p1.y == p2.y)
+		env->data[(int)ceil(p1.y) * WIN_WIDTH + (int)ceil(p1.x)] = color;
+		if ((int)ceil(p1.x) == (int)ceil(p2.x) && (int)ceil(p1.y) == (int)ceil(p2.y))
 			break ;
 		d.err_2 = d.err_1;
 		if (d.err_2 > -d.delta.x)
 		{
 			d.err_1 -= d.delta.y;
-			p1.x += d.step.x;
+			p1.x = ceil(p1.x) + d.step.x;
 		}
 		if (d.err_2 < d.delta.y)
 		{
 			d.err_1 += d.delta.x;
-			p1.y += d.step.y;
+			p1.y = ceil(p1.y) + d.step.y;
 		}
 	}
 }

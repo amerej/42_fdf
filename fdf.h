@@ -6,7 +6,7 @@
 /*   By: aditsch <aditsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 17:10:46 by aditsch           #+#    #+#             */
-/*   Updated: 2016/12/09 17:38:29 by aditsch          ###   ########.fr       */
+/*   Updated: 2016/12/10 17:01:31 by aditsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
-# define TILE_WIDTH 20
-# define TILE_HEIGHT 20
+# define TILE_WIDTH 32
+# define TILE_HEIGHT 32
 
 # define KEY_ESC 53
 
@@ -44,20 +44,26 @@
 # define KEY_ROT_Z_U 88
 # define KEY_ROT_Z_D 85
 
-# define MOVE_ROT_X_U -M_PI / 64
-# define MOVE_ROT_X_D M_PI / 64
-# define MOVE_ROT_Y_U -M_PI / 64
-# define MOVE_ROT_Y_D M_PI / 64
-# define MOVE_ROT_Z_U -M_PI / 64
-# define MOVE_ROT_Z_D M_PI / 64
+# define MOVE_ROT_X_U -M_PI / 8
+# define MOVE_ROT_X_D M_PI / 8
+# define MOVE_ROT_Y_U -M_PI / 8
+# define MOVE_ROT_Y_D M_PI / 8
+# define MOVE_ROT_Z_U -M_PI / 8
+# define MOVE_ROT_Z_D M_PI / 8
 
 typedef struct			s_point
 {
+	double				x;
+	double				y;
+	double				z;
+	double				w;
+}						t_point;
+
+typedef struct			s_point_i
+{
 	int					x;
 	int					y;
-	int					z;
-	int					w;
-}						t_point;
+}						t_point_i;
 
 typedef struct			s_list
 {
@@ -69,7 +75,7 @@ typedef struct			s_map
 {
 	t_list				*list;
 	t_point				**coord;
-	t_point				size;
+	t_point_i			size;
 	t_point				center;
 }						t_map;
 
@@ -84,10 +90,10 @@ typedef struct			s_env
 
 typedef struct			s_draw_line
 {
-	t_point				p1;
-	t_point				p2;
-	t_point				delta;
-	t_point				step;
+	t_point_i			p1;
+	t_point_i			p2;
+	t_point_i			delta;
+	t_point_i			step;
 	int					err_1;
 	int					err_2;
 }						t_draw_line;
@@ -118,7 +124,7 @@ void					ft_print_coord(t_map *map);
 
 void					ft_list_push_back(t_list **list, char *line);
 t_list					*ft_map_get_list(char *argv);
-t_point					ft_map_get_size(t_map *map);
+t_point_i				ft_map_get_size(t_map *map);
 t_point					**ft_map_get_coord(t_map *map);
 t_point					ft_get_map_center(t_map *map);
 

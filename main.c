@@ -6,7 +6,7 @@
 /*   By: aditsch <aditsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 17:11:12 by aditsch           #+#    #+#             */
-/*   Updated: 2016/12/09 17:17:37 by aditsch          ###   ########.fr       */
+/*   Updated: 2016/12/10 15:20:38 by aditsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		ft_print_coord(t_map *map)
 	{
 		int x = -1;
 		while (++x < map->size.x)
-			printf("\033[31m%d,\033[32m%d,\033[34m%d ",
+			printf("\033[31m%lf,\033[32m%lf,\033[34m%lf ",
 			map->coord[y][x].x, map->coord[y][x].y, map->coord[y][x].z);
 		printf("\n");
 	}

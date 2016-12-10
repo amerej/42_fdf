@@ -6,7 +6,7 @@
 /*   By: aditsch <aditsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 17:42:21 by aditsch           #+#    #+#             */
-/*   Updated: 2016/12/09 17:32:16 by aditsch          ###   ########.fr       */
+/*   Updated: 2016/12/10 15:19:55 by aditsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,10 @@ void		ft_rotate(t_env *env, double rot, char axe)
 
 void		ft_matrix_transform(t_matrix4 *m, t_map *map, t_point *p)
 {
-	int		tx;
-	int		ty;
-	int		tz;
+	double		tx;
+	double		ty;
+	double		tz;
+
 	p->x -= map->center.x;
 	p->y -= map->center.y;
 	tx = p->x * m->x1 + p->y * m->x2 + p->z * m->x3 + p->w * m->x4;
