@@ -6,7 +6,7 @@
 /*   By: aditsch <aditsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 14:55:41 by aditsch           #+#    #+#             */
-/*   Updated: 2016/12/10 15:20:28 by aditsch          ###   ########.fr       */
+/*   Updated: 2016/12/12 16:11:28 by aditsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ void	ft_key_hook_rotate(int keycode, t_env *env)
 		ft_rotate(env, MOVE_ROT_Z_D, 'z');
 }
 
+void	ft_key_hook_scale(int keycode, t_env *env)
+{
+	if (keycode == KEY_ZOOM_IN)
+		ft_scale(env, MOVE_ZOOM_IN);
+	else if (keycode == KEY_ZOOM_OUT)
+		ft_scale(env, MOVE_ZOOM_OUT);
+}
+
 int		ft_key_hook(int keycode, t_env *env)
 {
 	if (keycode == KEY_ESC)
@@ -49,7 +57,7 @@ int		ft_key_hook(int keycode, t_env *env)
 	}
 	ft_key_hook_translate(keycode, env);
 	ft_key_hook_rotate(keycode, env);
-	ft_print_coord(env->map);
+	ft_key_hook_scale(keycode, env);
 	ft_draw_image(env);
 	return (0);
 }

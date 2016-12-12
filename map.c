@@ -6,7 +6,7 @@
 /*   By: aditsch <aditsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 17:16:32 by aditsch           #+#    #+#             */
-/*   Updated: 2016/12/10 17:06:20 by aditsch          ###   ########.fr       */
+/*   Updated: 2016/12/12 18:08:55 by aditsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ t_point		ft_get_map_center(t_map *map)
 {
 	t_point	p;
 
-	p.x = (map->coord[map->size.y - 1][map->size.x - 1].x + map->coord[0][0].x) / 2.;
-	p.y = (map->coord[map->size.y - 1][map->size.x - 1].y + map->coord[0][0].y) / 2.;
-	printf("x=%lf, y=%lf\n", p.x, p.y);
+	p.x = (map->coord[map->size.y - 1][map->size.x - 1].x +
+		map->coord[0][0].x) / 2.;
+	p.y = (map->coord[map->size.y - 1][map->size.x - 1].y +
+		map->coord[0][0].y) / 2.;
 	return (p);
 }
 
@@ -49,7 +50,7 @@ t_list		*ft_map_get_list(char *argv)
 	return (list);
 }
 
-t_point_i		ft_map_get_size(t_map *map)
+t_point_i	ft_map_get_size(t_map *map)
 {
 	char		**tmp;
 	t_list		*list;
@@ -94,6 +95,7 @@ t_point		**ft_map_get_coord(t_map *map)
 			coord[y][x].y = y * TILE_HEIGHT;
 			coord[y][x].z = ft_atoi(tmp[x]);
 			coord[y][x].w = 1;
+			coord[y][x].color = ft_atoi(tmp[x]);
 		}
 		list = list->next;
 	}

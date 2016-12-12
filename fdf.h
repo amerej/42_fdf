@@ -6,7 +6,7 @@
 /*   By: aditsch <aditsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 17:10:46 by aditsch           #+#    #+#             */
-/*   Updated: 2016/12/10 17:01:31 by aditsch          ###   ########.fr       */
+/*   Updated: 2016/12/12 18:01:22 by aditsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 # include "minilibx_osx/mlx.h"
 # include <math.h>
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
-# define TILE_WIDTH 32
-# define TILE_HEIGHT 32
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
+# define TILE_WIDTH 20
+# define TILE_HEIGHT 20
 
 # define KEY_ESC 53
 
@@ -51,12 +51,19 @@
 # define MOVE_ROT_Z_U -M_PI / 8
 # define MOVE_ROT_Z_D M_PI / 8
 
+# define KEY_ZOOM_IN 69
+# define KEY_ZOOM_OUT 78
+
+# define MOVE_ZOOM_IN 1.1
+# define MOVE_ZOOM_OUT 0.9
+
 typedef struct			s_point
 {
 	double				x;
 	double				y;
 	double				z;
 	double				w;
+	int					color;
 }						t_point;
 
 typedef struct			s_point_i
@@ -86,6 +93,7 @@ typedef struct			s_env
 	t_map				*map;
 	void				*img_ptr;
 	int					*data;
+	int					s_line;
 }						t_env;
 
 typedef struct			s_draw_line
@@ -127,6 +135,9 @@ t_list					*ft_map_get_list(char *argv);
 t_point_i				ft_map_get_size(t_map *map);
 t_point					**ft_map_get_coord(t_map *map);
 t_point					ft_get_map_center(t_map *map);
+void					ft_adapt_map(t_env *env);
+int						ft_draw_in_limits(t_point *p);
+int						ft_get_color(t_point *p1, t_point *p2);
 
 t_matrix4				*ft_matrix_rotate_x(double alpha);
 t_matrix4				*ft_matrix_rotate_y(double beta);
@@ -134,16 +145,21 @@ t_matrix4				*ft_matrix_rotate_z(double gamma);
 t_matrix4				*ft_matrix_translate(int tx, int ty, int tz);
 t_matrix4				*ft_matrix_scale(double s);
 t_matrix4				*ft_matrix_translate(int tx, int ty, int tz);
+
 void					ft_translate(t_env *env, double x, double y, double z);
 void					ft_rotate(t_env *env, double rot, char axe);
-void					ft_matrix_transform(t_matrix4 *m, t_map *map, t_point *p);
+void					ft_scale(t_env *env, double s);
+void					ft_matrix_transform(t_matrix4 *m, t_map *map,
+						t_point *p);
 void					ft_matrix_transform_shape(t_map *map, t_matrix4 *m);
 
 int						ft_key_hook(int keycode, t_env *env);
 void					ft_key_hook_translate(int keycode, t_env *env);
 void					ft_key_hook_rotate(int keycode, t_env *env);
+void					ft_key_hook_scale(int keycode, t_env *env);
 
 void					ft_draw_image(t_env *env);
 void					ft_draw_map(t_env *env, t_map *map);
-void					ft_draw_line(t_env *env, t_point p1, t_point p2, int color);
+void					ft_draw_line(t_env *env, t_draw_line d, t_point p1,
+						t_point p2);
 #endif
