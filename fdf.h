@@ -6,7 +6,7 @@
 /*   By: aditsch <aditsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 17:10:46 by aditsch           #+#    #+#             */
-/*   Updated: 2016/12/12 18:01:22 by aditsch          ###   ########.fr       */
+/*   Updated: 2016/12/12 20:16:12 by aditsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef struct			s_env
 	void				*win;
 	t_map				*map;
 	void				*img_ptr;
-	int					*data;
+	char				*data;
 	int					s_line;
 }						t_env;
 
@@ -159,6 +159,7 @@ void					ft_key_hook_rotate(int keycode, t_env *env);
 void					ft_key_hook_scale(int keycode, t_env *env);
 
 void					ft_draw_image(t_env *env);
+void					ft_draw_point(t_env *env, t_point *p, int color);
 void					ft_draw_map(t_env *env, t_map *map);
 void					ft_draw_line(t_env *env, t_draw_line d, t_point p1,
 						t_point p2);

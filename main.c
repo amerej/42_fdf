@@ -6,7 +6,7 @@
 /*   By: aditsch <aditsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 17:11:12 by aditsch           #+#    #+#             */
-/*   Updated: 2016/12/12 18:09:38 by aditsch          ###   ########.fr       */
+/*   Updated: 2016/12/12 20:19:47 by aditsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	ft_adapt_map(t_env *env)
 	int		height;
 	double	scale_factor;
 
-	width = WIN_WIDTH / 2;
-	height = WIN_HEIGHT / 2;
+	width = (WIN_WIDTH + 100) / 2;
+	height = (WIN_HEIGHT + 100) / 2;
 	(int)env->map->center.x == 0 ? env->map->center.x = 10 : env->map->center.x;
 	scale_factor = (width - 600) / env->map->center.x;
 	ft_translate(env, -env->map->center.x + width,

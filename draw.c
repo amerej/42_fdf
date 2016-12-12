@@ -6,7 +6,7 @@
 /*   By: aditsch <aditsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 15:05:00 by aditsch           #+#    #+#             */
-/*   Updated: 2016/12/12 18:08:31 by aditsch          ###   ########.fr       */
+/*   Updated: 2016/12/12 20:20:13 by aditsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,28 @@
 
 int			ft_draw_in_limits(t_point *p)
 {
-	if (!(p->x > WIN_WIDTH - 10 || p->x < 10 || p->y > WIN_HEIGHT - 10 ||
-		p->y < 10))
+	if (!(p->x > WIN_WIDTH + 100 || p->x <= 0 || p->y > WIN_HEIGHT + 100 ||
+		p->y <= 0))
 		return (1);
 	else
 		return (0);
 }
 
-void		ft_draw_point(t_env *env, t_point *p1, t_point *p2)
+void		ft_draw_point(t_env *env, t_point *p, int color)
 {
-	env->data[((int)ceil(p1->y) * WIN_WIDTH) + (int)ceil(p1->x)] =
-		ft_get_color(p1, p2);
+	int i;
+
+	i = ((int)p->x * 4) + ((int)p->y * env->s_line);
+	env->data[i] = color;
+	env->data[++i] = color >> 8;
+	env->data[++i] = color >> 16;
 }
+
+// void		ft_draw_point(t_env *env, t_point *p1, t_point *p2)
+// {
+// 	env->data[((int)ceil(p1->y) * WIN_WIDTH) + (int)ceil(p1->x)] =
+// 		ft_get_color(p1, p2);
+// }
 
 void		ft_draw_line(t_env *env, t_draw_line d, t_point p1, t_point p2)
 {
@@ -38,7 +48,7 @@ void		ft_draw_line(t_env *env, t_draw_line d, t_point p1, t_point p2)
 		return ;
 	while (1)
 	{
-		ft_draw_point(env, &p1, &p2);
+		ft_draw_point(env, &p1, ft_get_color(&p1, &p2));
 		if ((int)ceil(p1.x) == (int)ceil(p2.x) && (int)ceil(p1.y) ==
 			(int)ceil(p2.y))
 			break ;
@@ -79,13 +89,12 @@ void		ft_draw_map(t_env *env, t_map *map)
 void		ft_draw_image(t_env *env)
 {
 	int		bpp;
-	int		sizeline;
 	int		endian;
 
-	env->img_ptr = mlx_new_image(env->mlx, WIN_WIDTH, WIN_HEIGHT);
-	env->data = (int *)mlx_get_data_addr(env->img_ptr, &bpp, &sizeline,
+	env->img_ptr = mlx_new_image(env->mlx, WIN_WIDTH + 100, WIN_HEIGHT + 100);
+	env->data = mlx_get_data_addr(env->img_ptr, &bpp, &(env->s_line),
 		&endian);
 	ft_draw_map(env, env->map);
-	mlx_put_image_to_window(env->mlx, env->win, env->img_ptr, 0, 0);
+	mlx_put_image_to_window(env->mlx, env->win, env->img_ptr, -50, -50);
 	mlx_destroy_image(env->mlx, env->img_ptr);
 }
