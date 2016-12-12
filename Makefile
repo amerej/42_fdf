@@ -1,6 +1,6 @@
 NAME	=	fdf
 
-SRC		=	main.c map.c key.c draw.c matrice.c
+SRC		=	main.c map.c key.c draw.c matrice.c transform.c
 
 OBJ		=	$(SRC:.c=.o)
 
