@@ -6,7 +6,7 @@
 /*   By: aditsch <aditsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 17:11:12 by aditsch           #+#    #+#             */
-/*   Updated: 2016/12/12 20:19:47 by aditsch          ###   ########.fr       */
+/*   Updated: 2016/12/13 14:20:52 by aditsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ t_map	*ft_import_map(char *argv)
 
 	map = (t_map *)malloc(sizeof(t_map));
 	map->list = ft_map_get_list(argv);
-	map->size = ft_map_get_size(map);
+	if (ft_map_get_size(map) == -1)
+	{
+		ft_putstr("Error Map !\n");
+		exit(1);
+	}
 	map->coord = ft_map_get_coord(map);
 	return (map);
 }
@@ -81,6 +85,11 @@ int		main(int argc, char *argv[])
 {
 	t_env	*env;
 
+	if (argc != 2)
+	{
+		ft_putstr("No map found !\n");
+		return (0);
+	}
 	env = ft_init_env();
 	env->map = ft_import_map(argv[1]);
 	env->map->center = ft_get_map_center(env->map);

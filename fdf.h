@@ -6,7 +6,7 @@
 /*   By: aditsch <aditsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 17:10:46 by aditsch           #+#    #+#             */
-/*   Updated: 2016/12/12 20:16:12 by aditsch          ###   ########.fr       */
+/*   Updated: 2016/12/13 12:33:48 by aditsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void					ft_print_coord(t_map *map);
 
 void					ft_list_push_back(t_list **list, char *line);
 t_list					*ft_map_get_list(char *argv);
-t_point_i				ft_map_get_size(t_map *map);
+int						ft_map_get_size(t_map *map);
 t_point					**ft_map_get_coord(t_map *map);
 t_point					ft_get_map_center(t_map *map);
 void					ft_adapt_map(t_env *env);
